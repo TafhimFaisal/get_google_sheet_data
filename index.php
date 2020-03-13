@@ -19,9 +19,11 @@
     } else {
 
         $data = dataModify( $values );
-        $table = tableGenerate( $data );
-        echo $table ;
-        dataManipulation( $data );
+        generateMigrationFile( dataManipulation($data) );
+
+        // $table = tableGenerate( $data );
+        // echo $table ;
+        // dataManipulation( $data );
 
     }
 
@@ -118,6 +120,54 @@
         foreach ($names as $key => $name) {
             $structuredData [ $name ] = getKey(keyValuePeared( $data,$name )); 
         }
-        var_dump($structuredData);
+        return $structuredData;
+    }
+
+
+
+
+    function generateMigrationFile($data){
+        
+        // var_dump($data);
+
+        $type = [
+            'int' => 'bigIncrements',
+            'varchar(255)' => 'string',
+            'text'=> 'text',
+            'json'=> 'json',
+            'datetime'=> 'timestamps'
+        ];
+        $columns = '';
+        foreach ($data as $key => $column) {
+            $columns .='$table->'.$type[$column['type']].'('. $key .');'."\n";
+        }
+        var_dump(migrationFileText( 'tableName',$columns ));
+
+    }
+
+
+    function migrationFileText( $tableName,$columns )
+    {
+        return $text = '
+            use Illuminate\Support\Facades\Schema;
+            use Illuminate\Database\Schema\Blueprint;
+            use Illuminate\Database\Migrations\Migration;
+            
+            class CreateFlightsTable extends Migration
+            {
+            
+                public function up()
+                {
+                    Schema::create('.$tableName.', function (Blueprint $table) {'.
+                        $columns
+                    .'});
+                }
+            
+                public function down(){
+                    Schema::drop('.$tableName.');
+                }
+            }
+        ';
+        
     }
 ?>

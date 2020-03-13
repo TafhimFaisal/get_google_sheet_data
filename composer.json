@@ -1,0 +1,8 @@
+{
+    "autoload": {
+        "psr-4": {"googleSheet\\": "src/"}
+    },
+    "require": {
+        "google/apiclient": "^2.0"
+    }
+}

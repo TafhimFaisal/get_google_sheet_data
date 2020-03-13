@@ -116,7 +116,7 @@
         $names = array_map( 'getKey',$data['tbody'] );
         $structuredData = [];
         foreach ($names as $key => $name) {
-            $structuredData [ $name ] = keyValuePeared( $data,$name ); 
+            $structuredData [ $name ] = getKey(keyValuePeared( $data,$name )); 
         }
         var_dump($structuredData);
     }

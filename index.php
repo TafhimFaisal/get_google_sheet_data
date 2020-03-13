@@ -36,11 +36,11 @@
 
     function tableGenerate($tableData){
 
-        $table = '';
-        $all_th = [];
-        $all_td = [];
-        $tablehead = '<thead>';
-        $tbody = '<tbody>';
+        $table      = '';
+        $all_th     = [];
+        $all_td     = [];
+        $tablehead  = '<thead>';
+        $tbody      = '<tbody>';
         
         foreach ($tableData['thead'] as $key => $th) {
             array_push($all_th,'<th>'.$th.'</th>');
@@ -57,12 +57,11 @@
         }
         
         $tablehead .= '</thead>';
-        $tr  = '<tr>';
-        $i = 0;
+        $tr         = '<tr>';
+        $i          = 0;
 
         foreach ($all_td as $key => $td) {
-            
-            
+                        
             if( $i == 5 ){
                 $tr .= $td;
                 
@@ -79,12 +78,13 @@
             }
 
         }
-        $tbody .= $tr;
-        $tbody .='</tbody>';
-        $table .= '<table>';
-        $table.= $tablehead;
-        $table.=$tbody;
-        $table .= '</table>';
+
+        $tbody  .=  $tr;
+        $tbody  .=  '</tbody>';
+        $table  .=  '<table>';
+        $table  .=  $tablehead;
+        $table  .=  $tbody;
+        $table  .=  '</table>';
 
 
         return $table;
@@ -106,9 +106,7 @@
                 }
                 array_push($structuredData,$array);
             }
-
         }
-
         return $structuredData;
 
     }
